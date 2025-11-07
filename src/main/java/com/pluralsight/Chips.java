@@ -19,9 +19,10 @@ public class Chips extends Product{
         return price;
     }
 
-    @Override
-    public String toString() {
-        return "Chips - " + flavor + " | Price: $" + String.format("%.2f", calculatePrice());
+    public void displayDetails(int width) {
+        System.out.println(ConsoleHelper.centerText("--- Chips: " + flavor + " ---", width));
+        System.out.printf("Price: $%.2f\n", calculatePrice());
+        System.out.println(ConsoleHelper.centerText("-".repeat(width), width));
     }
 
 }

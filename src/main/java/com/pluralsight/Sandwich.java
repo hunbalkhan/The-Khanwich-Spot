@@ -12,7 +12,7 @@ public class Sandwich extends Product{
     private ArrayList<Topping> toppings;
 
     // Constructors
-    public Sandwich(String name, double price, String size, String breadType, boolean toasted, ArrayList<Topping> topping) {
+    public Sandwich(String name, double price, String size, String breadType, boolean toasted, ArrayList<Topping> toppings) {
         super(name, getBasePrice(size));
         this.size = size;
         this.breadType = breadType;
@@ -124,25 +124,39 @@ public class Sandwich extends Product{
     }
 
 
-    // Display Info to console.
-    public void displayDetails() {
-        System.out.println("\n--- " + name + " ---");
-        System.out.println("Size: " + size);
-        System.out.println("Bread: " + breadType);
-        System.out.println("Toasted: " + (toasted ? "Yes" : "No"));
-        System.out.println("Toppings: ");
+    // Display Info to console. keeping this so i can centre
+    // Pretty console output
+    public void displayDetails(int width) {
+        System.out.println(ConsoleHelper.centerText("--- " + name + " ---", width));
+        System.out.println("Size: " + size + " | Bread: " + breadType + " | Toasted: " + (toasted ? "Yes" : "No"));
+        System.out.println("Toppings:");
+
         for (Topping t : toppings) {
-            System.out.println(" - " + t.toString());
+            System.out.println(" - " + t);
         }
+
         System.out.printf("Price: $%.2f\n", calculatePrice());
+        System.out.println(ConsoleHelper.centerText("-".repeat(width), width));
     }
+
+
+//        System.out.println("\n--- " + name + " ---");
+//        System.out.println("Size: " + size);
+//        System.out.println("Bread: " + breadType);
+//        System.out.println("Toasted: " + (toasted ? "Yes" : "No"));
+//        System.out.println("Toppings:");
+//        for (Topping t : toppings) {
+//            System.out.println(" - " + t); // calls for topping.toString()
+//        }
+//        System.out.printf("Price: $%.2f\n", calculatePrice());
+//    }
 
     @Override
     public String toString() {
         return "Sandwich - " +
-                "size= " + size + '\'' +
-                ", breadType= " + breadType + '\'' +
-                ", toasted= " + toasted +
-                ", toppings= " + toppings;
+                size + ", " +
+                breadType +
+                ", Toasted: " + (toasted ? "Yes" : "No") +
+                ", Toppings: " + toppings;
     }
 }

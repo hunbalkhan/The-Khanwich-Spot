@@ -21,15 +21,12 @@ public abstract class Product {
         return price;
     }
 
-    // Abstract method that forces subclasses to define how their price is calculated
+    // Abstract method that forces subclasses to define how their price calculation
     public abstract double calculatePrice();
-
 
     @Override
     public String toString() {
-        return "Product " +
-                "name= " + name + '\'' +
-                ", price= " + price;
+        return String.format("%s | $%.2f", name, price);
     }
 }
 
