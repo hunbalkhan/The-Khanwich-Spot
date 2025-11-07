@@ -1,0 +1,19 @@
+example display of a receipt
+
+Receipt for The Khanwich Spot
+==============================
+
+Order ID: 12345
+Date: 2025-11-07 22:30:15
+
+Items:
+1x Large Toasted Chicken Sandwich - $8.50
+   + Extra cheese
+   + Lettuce
+1x Drink (Cola, Medium) - $2.00
+1x Chips (BBQ) - $1.50
+
+------------------------------
+TOTAL: $12.00
+
+Thank you for your order!

@@ -18,6 +18,15 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
+    // second constructor for flexibility.
+    public Order() {
+        this.orderId = orderId;
+        this.items = new ArrayList<>();
+    }
+
+
+
+
     public String getOrderId() {
         return orderId;
     }
@@ -41,6 +50,9 @@ public class Order {
         }
         return total;
     }
+
+
+
 
     // Display order details to the console.
     public void displayOrder() {

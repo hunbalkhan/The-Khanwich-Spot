@@ -75,6 +75,7 @@ public class Sandwich extends Product{
         }
         // extra meat add on top of base amount, or just base, works either way
         return basePrice + (extraPrice * extraMeatCount);
+        //      1.00     +  (   .50    *     3         )
     }
 
     // helper for the cheese pricing
