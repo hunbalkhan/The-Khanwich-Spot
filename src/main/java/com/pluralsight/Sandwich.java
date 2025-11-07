@@ -1,7 +1,148 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
+
 public class Sandwich extends Product{
 
     // Represents a customizable sandwich. Will include size, bread, toppings, toasted option.
 
+    private String size;
+    private String breadType;
+    private boolean toasted;
+    private ArrayList<Topping> toppings;
+
+    // Constructors
+    public Sandwich(String name, double price, String size, String breadType, boolean toasted, ArrayList<Topping> topping) {
+        super(name, getBasePrice(size));
+        this.size = size;
+        this.breadType = breadType;
+        this.toasted = toasted;
+        this.toppings = new ArrayList<>(); // makes this start with an empty list of toppings
+    }
+
+    // Getters
+    public String getSize() {
+        return size;
+    }
+    public String getBreadType() {
+        return breadType;
+    }
+    public boolean isToasted() {
+        return toasted;
+    }
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
+
+    // Returns base sandwich price depending on size
+    private static double getBasePrice(String size) {
+        switch (size) {
+            case "4": return 5.50;
+            case "8": return 7.00;
+            case "12": return 8.50;
+            default: return 0;
+        }
+    }
+
+// I kind of want to go ahead and calculate everything in each class and then make it to print in an interface class to bring i together then make main to only have one display method
+
+    // topping added to sammich
+    public void addTopping(Topping topping) {
+        toppings.add(topping);
+    }
+
+
+    // helper for the meat pricing based on size of sammich and multiple meat add ons
+    private double getMeatPrice(String size, int extraMeatCount) {
+        double basePrice = 0;
+        double extraPrice = 0;
+
+        switch (size) {
+            case "4":
+                basePrice = 1.00;
+                extraPrice = 0.50;
+                break;
+            case"8":
+                basePrice = 2.00;
+                extraPrice = 1.00;
+                break;
+            case "12":
+                basePrice = 3.00;
+                extraPrice = 1.50;
+                break;
+            default:
+                return 0.0;
+        }
+        // extra meat add on top of base amount, or just base, works either way
+        return basePrice + (extraPrice * extraMeatCount);
+    }
+
+    // helper for the cheese pricing
+    private double getCheesePrice(String size, int extraCheeseCount) {
+        double basePrice = 0;
+        double extraPrice = 0;
+
+        switch (size) {
+            case "4":
+                basePrice = 0.75;
+                extraPrice = 0.30;
+                break;
+            case"8":
+                basePrice = 1.50;
+                extraPrice = 0.60;
+                break;
+            case "12":
+                basePrice = 2.25;
+                extraPrice = 0.90;
+                break;
+            default:
+                return 0.0;
+        }
+        // extra cheese add on top of base amount, or just base, works either way
+        return basePrice + (extraPrice * extraCheeseCount);
+    }
+
+    @Override
+    public double calculatePrice() {
+        double total = price; // start with base sammich price
+
+        for (Topping t : toppings) {
+            String category = t.getCategory(); // meat, cheese, regular toppings etc.
+
+            switch (category.toLowerCase()) {
+                case "meat":
+                    total += getMeatPrice(size, t.getExtraCount());
+                    break;
+                case "cheese":
+                    total += getCheesePrice(size, t.getExtraCount());
+                    break;
+                // regular toppings/sauces are free
+            }
+        }
+
+        return total;
+    }
+
+
+    // Display Info to console.
+    public void displayDetails() {
+        System.out.println("\n--- " + name + " ---");
+        System.out.println("Size: " + size);
+        System.out.println("Bread: " + breadType);
+        System.out.println("Toasted: " + (toasted ? "Yes" : "No"));
+        System.out.println("Toppings: ");
+        for (Topping t : toppings) {
+            System.out.println(" - " + t.toString());
+        }
+        System.out.printf("Price: $%.2f\n", calculatePrice());
+    }
+
+    @Override
+    public String toString() {
+        return "Sandwich - " +
+                "size= " + size + '\'' +
+                ", breadType= " + breadType + '\'' +
+                ", toasted= " + toasted +
+                ", toppings= " + toppings;
+    }
 }
