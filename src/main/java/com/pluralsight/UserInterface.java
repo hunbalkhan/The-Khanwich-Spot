@@ -93,7 +93,7 @@ public class UserInterface {
         // sandwich is made, now add toppings
         boolean running = true;
         while (running) {
-            String toppingName = ConsoleHelper.promptForString("Would you like to add toppings (or 'done' to finish)");
+            String toppingName = ConsoleHelper.promptForString("choose from regular list/ Meat list/ cheese list (or 'done' to finish)");
 
             if (toppingName.equalsIgnoreCase("done")) {
                 running = false; // stops adding toppings
