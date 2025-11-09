@@ -140,18 +140,6 @@ public class Sandwich extends Product{
         System.out.println(ConsoleHelper.centerText("-".repeat(width), width));
     }
 
-
-//        System.out.println("\n--- " + name + " ---");
-//        System.out.println("Size: " + size);
-//        System.out.println("Bread: " + breadType);
-//        System.out.println("Toasted: " + (toasted ? "Yes" : "No"));
-//        System.out.println("Toppings:");
-//        for (Topping t : toppings) {
-//            System.out.println(" - " + t); // calls for topping.toString()
-//        }
-//        System.out.printf("Price: $%.2f\n", calculatePrice());
-//    }
-
     @Override
     public String toString() {
         return "Sandwich - " +

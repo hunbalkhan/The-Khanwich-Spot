@@ -44,7 +44,7 @@ public class ConsoleHelper {
         boolean valid = false;
 
         while (!valid) {
-            System.out.print(prompt + ": $");  // Keep your $ symbol
+            System.out.print(prompt + ": ");  // Keep your $ symbol
             String input = scanner.nextLine().trim(); // Read input as String
 
             try {
