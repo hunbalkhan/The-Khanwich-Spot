@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserInterface {
 
@@ -90,38 +91,94 @@ public class UserInterface {
         // empty sandwich object
         Sandwich sandwich = new Sandwich("Custom Sandwich", 0, size, bread, toasted, new ArrayList<>());
 
-        // sandwich is made, now add toppings
+//        // sandwich is made, now add toppings
+//        boolean running = true;
+//        while (running) {
+//            String toppingName = ConsoleHelper.promptForString("choose from regular list/ Meat list/ cheese list (or 'done' to finish)");
+//
+//            if (toppingName.equalsIgnoreCase("done")) {
+//                running = false; // stops adding toppings
+//            }
+//            else {
+//                // ask what type of topping it is
+//                String category = ConsoleHelper.promptForString("Category (meat/cheese/regular");
+//                int extraCount = 0;
+//
+//                // if premium topping, then ask how many extras
+//                if (category.equalsIgnoreCase("meat") || category.equalsIgnoreCase("cheese")) {
+//                    extraCount = (int) ConsoleHelper.promptForDouble("Quantity of Extra topping (0 for none)");
+//                }
+//
+//                // add the topping to the sandwich
+//                sandwich.addTopping(new Topping(toppingName, category, extraCount));
+//            }
+//        }
+//
+//        // add the finished complete sandwich to the order now
+//        currentOrder.addItem(sandwich);
+//        System.out.println("✅ Sandwich added!");
+
+        // above sammich was created now we need to add toppings
         boolean running = true;
         while (running) {
-            String toppingName = ConsoleHelper.promptForString("choose from regular list/ Meat list/ cheese list (or 'done' to finish)");
+            System.out.println("""
+                    \nSelect toppings for your sandwich:
+                    1) Meats (premium)
+                    2) Cheeses (premium)
+                    3) Veggies (regular)
+                    4) Sauces (regular)
+                    0) Done adding toppings
+                    """);
 
-            if (toppingName.equalsIgnoreCase("done")) {
-                running = false; // stops adding toppings
+            String choice = ConsoleHelper.promptForString("Enter choice");
+
+            switch (choice) {
+                case "1":
+                    List<String> selectedMeats = ToppingsHelper.selectMultiple(ToppingsHelper.meats, "Select meats");
+                    // loop through each meat inside of the list of options called meats in toppings helper class which is displayed through the method selectMultiple
+                    for (String meat : selectedMeats) {
+                        // Ask how many portions of meat
+                        int extra = (int) ConsoleHelper.promptForDouble("Extra portions of" + meat + " (0 for none)");
+                        //add meat to the sandwich
+                        sandwich.addTopping(new Topping(meat, "meat", extra));
+                    }
+                    break;
+                case "0": // finish
+                    running = false;
+                    break;
             }
-            else {
-                // ask what type of topping it is
-                String category = ConsoleHelper.promptForString("Category (meat/cheese/regular");
-                int extraCount = 0;
 
-                // if premium topping, then ask how many extras
-                if (category.equalsIgnoreCase("meat") || category.equalsIgnoreCase("cheese")) {
-                    extraCount = (int) ConsoleHelper.promptForDouble("Quantity of Extra topping (0 for none)");
-                }
 
-                // add the topping to the sandwich
-                sandwich.addTopping(new Topping(toppingName, category, extraCount));
-            }
+
+//  PREV CODE
+//            // sandwich is made, now add toppings
+//            boolean running = true;
+//            while (running) {
+//                String toppingName = ConsoleHelper.promptForString("choose from regular list/ Meat list/ cheese list (or 'done' to finish)");
+//
+//                if (toppingName.equalsIgnoreCase("done")) {
+//                    running = false; // stops adding toppings
+//                }
+//                else {
+//                    // ask what type of topping it is
+//                    String category = ConsoleHelper.promptForString("Category (meat/cheese/regular");
+//                    int extraCount = 0;
+//
+//                    // if premium topping, then ask how many extras
+//                    if (category.equalsIgnoreCase("meat") || category.equalsIgnoreCase("cheese")) {
+//                        extraCount = (int) ConsoleHelper.promptForDouble("Quantity of Extra topping (0 for none)");
+//                    }
+//
+//                    // add the topping to the sandwich
+//                    sandwich.addTopping(new Topping(toppingName, category, extraCount));
         }
-
-        // add the finished complete sandwich to the order now
-        currentOrder.addItem(sandwich);
-        System.out.println("✅ Sandwich added!");
     }
 
     // handles drink creation
     private void addDrink() {
         System.out.println("\n--- ADD DRINK ---");
 
+// old style without topping helper
         // Ask user for size & flavour
         String size = ConsoleHelper.promptForString("Choose size (small, medium, large)");
         String flavor = ConsoleHelper.promptForString("Enter flavour (Coke/Sprite/Fanta)");
@@ -129,6 +186,11 @@ public class UserInterface {
         // create and add drink to order
         currentOrder.addItem(new Drink(flavor, size));
         System.out.println("✅ Drink added!");
+
+        // select size
+        String[] drinksSize = {"Small", "Medium", "Large"};
+
+
     }
 
     // handles chip creation
