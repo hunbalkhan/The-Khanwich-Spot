@@ -7,12 +7,16 @@ public class ToppingsHelper {
 
     // hardcoded arrays to store all available options to choose from for the User
 
-    // breads list
+    // breads
+    public static final String[] breads = {"White", "Wheat", "Rye", "Wrap"};
 
-    // Prem toppings listr
+    // Prem toppings
     public static final String[] meats = {"Turkey", "Ham", "Chicken", "Roast Beef", "Salami", "Bacon", "Steak"};
+    public static final String[] cheeses = {"American", "Swiss", "Cheddar", "Provolone"};
 
-    // Reg toppings list
+    // Reg toppings
+    public static final String[] veggies = {"Lettuce", "Peppers", "Onion", "Tomato", "Jalapenos", "Cucumbers", "Pickles", "Guacamole", "Mushrooms"};
+    public static final String[] sauces = {"Mayo", "Mustard", "Ranch", "Thousand Island", "Ketchup", "Vinaigrette"};
 
 
     // below are utility methods to kind of help the display, and collect user selections I'm show im trying to go about it
@@ -26,8 +30,6 @@ public class ToppingsHelper {
         // "0" lets the user skip if they dont want to anymore toppings
         System.out.println("0. Skip");
     }
-
-
 
 
 
@@ -49,12 +51,12 @@ public class ToppingsHelper {
         displayOptions(options, title);
 
         // ask user input
-        String input = ConsoleHelper.promptForString("Enter numbers seperated by spaces (0 to skip)");
+        String input = ConsoleHelper.promptForString("Enter numbers seperated by a comma (0 to skip)");
 
         // split input by spaces
-        String[] parts = input.split(" ");
+        String[] parts = input.split(",");
 
-        // loop trhough each number entered
+        // loop through each number entered
         for (String part : parts) {
             try {
                 // convert input into index ( -1 because array starts at 0)
@@ -74,4 +76,24 @@ public class ToppingsHelper {
         return selected;
     }
 
+    // Let's the user chhoose options that require single answers like bread type
+    public static String selectSingle(String[] options, String title) {
+        displayOptions(options, title);
+
+        String input = ConsoleHelper.promptForString("Enter your choice");
+
+        try {
+            int index = Integer.parseInt(input) - 1;
+
+            if (index >= 0 && index < options.length) {
+                return options[index]; // returns selected option
+            }
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Invalid input, try again.");
+        }
+
+        System.out.println("No selection made.");
+        return "0"; // tbd
+    }
 }

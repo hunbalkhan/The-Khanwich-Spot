@@ -128,24 +128,32 @@ public class Sandwich extends Product{
     // Display Info to console. keeping this so i can centre
     // Pretty console output
     public void displayDetails(int width) {
-        System.out.println(ConsoleHelper.centerText("--- " + name + " ---", width));
-        System.out.println("Size: " + size + " | Bread: " + breadType + " | Toasted: " + (toasted ? "Yes" : "No"));
-        System.out.println("Toppings:");
 
+        // prints and centres name
+        System.out.println(ConsoleHelper.centerText("--- " + name + " ---", width));
+
+        // prints and centres size, bread, toasted
+        System.out.println(ConsoleHelper.centerText("Size: " + size + " | Bread: " + breadType + " | Toasted: " + (toasted ? "Yes" : "No"), width));
+
+        // prints and centres toppings header
+        System.out.println(ConsoleHelper.centerText("Toppings:",width));
+
+        // loops all toppings and prints & centres each one
         for (Topping t : toppings) {
-            System.out.println(" - " + t);
+            // toppings should show name, category and extra count if any
+            System.out.println(ConsoleHelper.centerText(" - " + t, width));
         }
 
-        System.out.printf("Price: $%.2f\n", calculatePrice());
-        System.out.println(ConsoleHelper.centerText("-".repeat(width), width));
+        // prints and centres the price
+        System.out.printf(ConsoleHelper.centerText(
+                String.format("Price: $%.2f\n", calculatePrice()), width));
+        // prints a line seperator centered
+        System.out.println("-".repeat(width));
     }
 
     @Override
     public String toString() {
-        return "Sandwich - " +
-                size + ", " +
-                breadType +
-                ", Toasted: " + (toasted ? "Yes" : "No") +
-                ", Toppings: " + toppings;
+        return String.format("Sandwich (%s\") - Bread: %s, Toasted: %s, Toppings: %s -- $%.2f",
+                size, breadType, toasted ? "Yes" : "No", toppings.toString(), calculatePrice());
     }
 }

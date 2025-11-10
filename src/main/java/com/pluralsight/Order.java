@@ -13,14 +13,15 @@ public class Order {
     private ArrayList<Product> items;
 
     public Order(String orderId) {
-        this.orderId = orderId;
+        this.orderId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
         this.dateTime = LocalDateTime.now();
         this.items = new ArrayList<>();
     }
 
     // second constructor for flexibility.
     public Order() {
-        this.orderId = orderId;
+        this.orderId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
+        this.dateTime = LocalDateTime.now();
         this.items = new ArrayList<>();
     }
 
@@ -56,23 +57,40 @@ public class Order {
 
     // Display order details to the console.
     public void displayOrder() {
-        System.out.println("\n=== Order " + orderId + " ===");
-                System.out.println("Date/Time: " + dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd / HH:mm:ss")));
-        System.out.println("Items in order:");
+
+        int width = 50; // width for centering console
+
+        System.out.println(ConsoleHelper.centerText("\n=== Order " + orderId + " ===", width));
+
+        // date and time centered
+        System.out.println(ConsoleHelper.centerText(
+                "Date/Time: " + dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd / HH:mm:ss")),
+                width));
+
+        // prints and centres header
+        System.out.println(ConsoleHelper.centerText("Items in order:", width));
+
         for (Product p : items) {
-            System.out.println(" - " + p.toString()); // Calls each product's toString() or display method
+            // check if product is a sandwich
+           if (p instanceof Sandwich) {
+               ((Sandwich) p).displayDetails(width); // call Sandwich displayDetails
+           }
+            else if (p instanceof Drink) {
+                ((Drink) p).displayDetails(width);
+           }
+            else if (p instanceof Chips) {
+               ((Chips) p).displayDetails(width);
+           }
         }
-        System.out.printf("Total Price: $%.2f\n", calculateTotal());
+        // print & centre total cost of order
+        System.out.printf(ConsoleHelper.centerText(
+                String.format("Total Price: $%.2f\n", calculateTotal()), width));
+
+
     }
 
 
-    // check if an order is valid or not; im going to use it when i create the order to check if its a complete order or not
-    // so i dont have extra orders in my csv file thats not even a proper order
-    public boolean isValid() {
-        //Stream looks at all the products in the order For this product p, return true if it’s a Sandwich.
-        boolean hasSandwich = items.stream().anyMatch( p -> p instanceof Sandwich ); //
-        boolean hasDrinkOrChips = items.stream().anyMatch( p -> p instanceof Drink || p instanceof Chips);
-        return hasSandwich || hasDrinkOrChips;
-    }
+
+    // need order isValid method to check for validity of order
 
 }
