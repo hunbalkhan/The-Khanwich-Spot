@@ -12,21 +12,11 @@ public class Order {
     private LocalDateTime dateTime;
     private ArrayList<Product> items;
 
-    public Order(String orderId) {
-        this.orderId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
-        this.dateTime = LocalDateTime.now();
-        this.items = new ArrayList<>();
-    }
-
-    // second constructor for flexibility.
     public Order() {
         this.orderId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
         this.dateTime = LocalDateTime.now();
         this.items = new ArrayList<>();
     }
-
-
-
 
     public String getOrderId() {
         return orderId;
@@ -88,9 +78,5 @@ public class Order {
 
 
     }
-
-
-
-    // need order isValid method to check for validity of order
 
 }
