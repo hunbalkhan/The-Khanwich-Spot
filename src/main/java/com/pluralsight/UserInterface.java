@@ -18,6 +18,7 @@ public class UserInterface {
         while (running) {
             showMainMenu();
 
+            // error handling in console helper
             int choice = ConsoleHelper.promptForInt("Select an option");
             switch (choice) {
                 case 1 -> startNewOrder();
@@ -83,15 +84,23 @@ public class UserInterface {
     }
 
     private void addSandwich() {
-        System.out.println("""
-                
-                ╔════════════════════════════╗
-                ║        ADD SANDWICH        ║
-                ╚════════════════════════════╝
-                """);
+        System.out.println("\n═════════    ADD SANDWICH    ════════");
 
         String size = ToppingsHelper.selectSingle(MenuOptions.Sandwich.sizes, "Choose Sandwich Size (inch)");
+
+        // error handling if user skipped selection
+        if (size == null) {
+            System.out.println("❌ Sandwich creation cancelled.");
+            return;
+        }
+
         String bread = ToppingsHelper.selectSingle(MenuOptions.Sandwich.breadTypes, "Choose Bread Type");
+
+        if (size == null) {
+            System.out.println("❌ Sandwich creation cancelled.");
+            return;
+        }
+
         boolean toasted = ToppingsHelper.chooseYesNo("Would you like it toasted?");
 
         // empty sandwich object
@@ -132,11 +141,16 @@ public class UserInterface {
         // lets user pick multiple meats from list
         List <String> selectedMeats = ToppingsHelper.selectMultiple(MenuOptions.Toppings.meats, "Select Meats");
 
+        // check if user selected meats
+        if (selectedMeats.isEmpty()) {
+            System.out.println("No meats selected.");
+            return; // Exit method early
+        }
 
         // loop through each meat they picked
         for (String meat : selectedMeats) {
             // asking if they want any extra portions
-            int extra = ConsoleHelper.promptForInt("Extra portions of" + meat + "? (0 for standard)");
+            int extra = ConsoleHelper.promptForInt("Extra portions of 54" + meat + "? (0 for standard)");
             // add this meat to the sandwich with extra count
             sandwich.addTopping(new Topping(meat, "meat", extra));
         }
@@ -169,26 +183,23 @@ public class UserInterface {
 
     // handles drink creation
     private void addDrink() {
-        System.out.println("\n--- ADD DRINK ---");
+        System.out.println("\n═════════     ADD DRINK      ════════");
 
         // Ask user for size & flavour
-        String size = ConsoleHelper.promptForString("Choose size (small, medium, large)");
-        String flavor = ConsoleHelper.promptForString("Enter flavour (Coke/Sprite/Fanta)");
+        String size = ToppingsHelper.selectSingle(MenuOptions.Drink.sizes, "Choose Drink Size");
+        String flavor = ConsoleHelper.promptForString("Enter flavour");
 
         // create and add drink to order
         currentOrder.addItem(new Drink(flavor, size));
         System.out.println("✅ Drink added!");
-
-        // select size
-        String[] drinksSize = {"Small", "Medium", "Large"};
     }
 
     // handles chip creation
     private void addChips() {
-        System.out.println("\n--- ADD CHIP ---");
+        System.out.println("\n═════════      ADD CHIPS     ════════");
 
         // ask user for flavor
-        String flavor = ConsoleHelper.promptForString("Enter flavor (BBQ, SALTED)");
+        String flavor = ConsoleHelper.promptForString("Enter flavor");
 
         // create and add chips to order
         currentOrder.addItem(new Chips(flavor));

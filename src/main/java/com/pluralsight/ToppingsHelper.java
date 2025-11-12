@@ -76,7 +76,7 @@ public class ToppingsHelper {
         System.out.println("2) No");
 
         while (true) {
-            int choice = ConsoleHelper.promptForInt("Enter your choice (1 or 2): ");
+            int choice = ConsoleHelper.promptForInt("Enter your choice (1 or 2)");
             if (choice == 1) return true;
             if (choice == 2) return false;
             System.out.println("❌ Invalid choice. Please enter 1 for Yes or 2 for No.");

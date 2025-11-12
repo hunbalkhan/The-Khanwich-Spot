@@ -18,10 +18,25 @@ public class ConsoleHelper {
         return input;
     }
 
-        public static int promptForInt(String prompt){
-        System.out.print(prompt + ": ");
-        int result = scanner.nextInt();
-        scanner.nextLine();
+    public static int promptForInt(String prompt){
+        int result = 0;
+        boolean valid = false;
+
+        // keep asking until get a valid integer
+        while (!valid) {
+            System.out.print(prompt + ": ");
+
+            // checks if input has an integer
+            if (scanner.hasNextInt()) {
+                result = scanner.nextInt();
+                scanner.nextLine();
+                valid = true;
+            }
+            else {
+                System.out.println("❌ Invalid input. Please enter a number.");
+                scanner.nextLine();
+            }
+        }
         return result;
     }
 

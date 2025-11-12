@@ -38,7 +38,7 @@ public class ReceiptManager {
 
         // try write the receipts to file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-
+            writeReceiptContent(bw, order);
         } catch (IOException e) {
             System.out.println("❌ Error saving receipt: " + e.getMessage());;
         }
@@ -68,25 +68,53 @@ public class ReceiptManager {
             // check what type of product it is and write
             if (item instanceof Sandwich) {
                 // call method with parameter
+                writeSandwichDetails(bw, (Sandwich) item);
             }
             if (item instanceof Drink) {
-                // call method with parameter
+                writeDrinkDetails(bw, (Drink) item);
             }
             if (item instanceof Chips) {
-                // call method with parameter
+                writeChipsDetails(bw, (Chips) item);
             }
         }
 
     }
 
     // writes sandwich details to receipt
-    private static void writeSandwichDetails(BufferedWriter bw, Sandwich sandwich) {
-        
+    private static void writeSandwichDetails(BufferedWriter bw, Sandwich sandwich) throws IOException {
+        bw.write("SANDWICH (" + sandwich.getSize() + "\"");
+        bw.write("  Bread: " + sandwich.getBreadType() + "\n");
+        bw.write("  Toasted: " + (sandwich.isToasted() ? "Yes" : "No") + "\n");
+
+        // write toppings in format
+        if (!sandwich.getToppings().isEmpty()) {
+            bw.write("  Toppings:\n");
+            for (Topping topping : sandwich.getToppings()) {
+                bw.write("    - " + topping.getName());
+
+                // write extra toppings if applicable
+                if (topping.getExtraCount() > 0) {
+                    bw.write(" (Extra x" + topping.getExtraCount() + ")");
+                }
+                bw.write("\n");
+            }
+        }
+        // write price
+        bw.write(String.format("  Price: $%.2f\n", sandwich.calculatePrice()));
     }
 
     // writes drink details to receipt
-
+    private static void writeDrinkDetails(BufferedWriter bw, Drink drink) throws IOException {
+        bw.write("DRINK\n");
+        bw.write("  Size: " + drink.getSize() + "\n");
+        bw.write("  Flavor: " + drink.getFlavor() + "\n");
+        bw.write(String.format("  Price: $%.2f\n", drink.calculatePrice()));
+    }
 
     // writes chip details to receipt
-
+    private static void writeChipsDetails(BufferedWriter bw, Chips chips) throws IOException {
+        bw.write("CHIPS\n");
+        bw.write("  Flavor: " + chips.getFlavor() + "\n");
+        bw.write(String.format("  Price: $%.2f\n", chips.calculatePrice()));
+    }
 }
