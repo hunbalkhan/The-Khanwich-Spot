@@ -136,76 +136,136 @@ public class UserInterface {
         System.out.printf("\n✅ Sandwich added to your order! \nPrice: $%.2f\n", sandwich.calculatePrice());
     }
 
-    // helper to add meats to a sandwich
+
+    // helper to reduce code, method adds any type of topping to a sandwich
+    private void addToppings(Sandwich sandwich, String[] options, String title, String category, boolean allowExtra) {
+        // user can select multiple items from given list
+        List <String> selectedItems = ToppingsHelper.selectMultiple(options, title);
+
+        // check if already selected
+        if (selectedItems.isEmpty()) {
+            System.out.println("No " + title.toLowerCase() + " selected.");
+            return;
+        }
+
+        // loop through user selected items
+        for (String item : selectedItems) {
+            // makes extras 0 by default
+            int extra = 0;
+
+            // if toppings allows extras then ask
+            if (allowExtra) {
+                extra = ConsoleHelper.promptForInt("Extra portions of " + item + "?  (0 for standard)");
+            }
+
+            // create a topping object and add it to sandwich
+            sandwich.addTopping(new Topping(item, category, extra));
+        }
+        System.out.println("✅ " + title + " added!");
+    }
+
     private void addMeats(Sandwich sandwich) {
-        // lets user pick multiple meats from list
-        List <String> selectedMeats = ToppingsHelper.selectMultiple(MenuOptions.Toppings.meats, "Select Meats");
+//        // lets user pick multiple meats from list
+//        List <String> selectedMeats = ToppingsHelper.selectMultiple(MenuOptions.Toppings.meats, "Select Meats");
+//
+//        // check if user selected meats
+//        if (selectedMeats.isEmpty()) {
+//            System.out.println("No meats selected.");
+//            return; // Exit method early
+//        }
+//
+//        // loop through each meat they picked
+//        for (String meat : selectedMeats) {
+//            // asking if they want any extra portions
+//            int extra = ConsoleHelper.promptForInt("Extra portions of " + meat + "? (0 for standard)");
+//            // add this meat to the sandwich with extra count
+//            sandwich.addTopping(new Topping(meat, "meat", extra));
+//        }
+//        System.out.println("✅ Meats added!");
+// OLD CODE ^^^^^^
 
-        // check if user selected meats
-        if (selectedMeats.isEmpty()) {
-            System.out.println("No meats selected.");
-            return; // Exit method early
-        }
+        // adds toppings, from the list of meats, set title as meats, in category meat, set true if extra is an option
+        addToppings(sandwich, MenuOptions.Toppings.meats, "Meats", "meat", true);
 
-        // loop through each meat they picked
-        for (String meat : selectedMeats) {
-            // asking if they want any extra portions
-            int extra = ConsoleHelper.promptForInt("Extra portions of 54" + meat + "? (0 for standard)");
-            // add this meat to the sandwich with extra count
-            sandwich.addTopping(new Topping(meat, "meat", extra));
-        }
-        System.out.println("✅ Meats added!");
     }
 
     private void addCheeses(Sandwich sandwich) {
-        List<String> selectedCheese = ToppingsHelper.selectMultiple(MenuOptions.Toppings.cheeses, "Select Cheese");
-        for (String cheese : selectedCheese) {
-            int extra = ConsoleHelper.promptForInt("Extra portions of " + cheese + "? (0 for standard)");
-            sandwich.addTopping(new Topping(cheese, "cheese", extra));
-        }
-        System.out.println("✅ Cheese added!");
+//        List<String> selectedCheese = ToppingsHelper.selectMultiple(MenuOptions.Toppings.cheeses, "Select Cheese");
+//        for (String cheese : selectedCheese) {
+//            int extra = ConsoleHelper.promptForInt("Extra portions of " + cheese + "? (0 for standard)");
+//            sandwich.addTopping(new Topping(cheese, "cheese", extra));
+//        }
+//        System.out.println("✅ Cheese added!");
+// OLD CODE ^^^^
+
+        addToppings(sandwich, MenuOptions.Toppings.cheeses, "Cheese", "cheese", true);
+
     }
 
     private void addVeggies(Sandwich sandwich) {
-        List<String> selectedVeg = ToppingsHelper.selectMultiple(MenuOptions.Toppings.veggies, "Select Veggies");
-        for (String veg : selectedVeg) {
-            sandwich.addTopping(new Topping(veg, "regular"));
-        }
-        System.out.println("✅ Veggies added!");
+        addToppings(sandwich, MenuOptions.Toppings.veggies, "Vegies", "regular", false);
     }
 
     private void addSauces(Sandwich sandwich) {
-        List<String> selectedSauces = ToppingsHelper.selectMultiple(MenuOptions.Toppings.sauces, "Select Sauces");
-        for (String sauce : selectedSauces) {
-            sandwich.addTopping(new Topping(sauce, "regular"));
+        addToppings(sandwich, MenuOptions.Toppings.sauces, "Sauces", "regular", false);
+    }
+
+
+    private String getSelectionOrCancel(String[] options, String title) {
+
+        // let user select one item from options
+        String selection = ToppingsHelper.selectSingle(options, title);
+
+        // check if user cancelled
+        if (selection == null) {
+            System.out.println("❌ Selection cancelled.");
         }
+        // return selection
+        return selection;
     }
 
     // handles drink creation
     private void addDrink() {
         System.out.println("\n═════════     ADD DRINK      ════════");
 
-        // Ask user for size & flavour
-        String size = ToppingsHelper.selectSingle(MenuOptions.Drink.sizes, "Choose Drink Size");
-        String flavor = ConsoleHelper.promptForString("Enter flavour");
+//        // Ask user for size & flavour
+//        String size = ToppingsHelper.selectSingle(MenuOptions.Drink.sizes, "Choose Drink Size");
+//        String flavor = ToppingsHelper.selectSingle(MenuOptions.Drink.flavors,"Enter flavour");
+//
+//        // create and add drink to order
+//        currentOrder.addItem(new Drink(flavor, size));
+//        System.out.println("✅ Drink added!");
+// OLD CODE ^^^\
 
-        // create and add drink to order
-        currentOrder.addItem(new Drink(flavor, size));
-        System.out.println("✅ Drink added!");
+        // get drink flavor using built in error handling
+        String size = getSelectionOrCancel(MenuOptions.Drink.sizes, "Choose Drink Size");
+        if (size == null) return; // exit if cancelled
+
+        String flavor = getSelectionOrCancel(MenuOptions.Drink.flavors, "Choose Drink flavor");
+        if (size == flavor) return; // exit if cancelled
+
+        // Created new drink object and adding to current order
+        Drink drink = new Drink(flavor, size);
+        currentOrder.addItem(drink);
+
+        System.out.printf("✅ Drink added! Price: $%.2f\n", drink.calculatePrice());
     }
+
 
     // handles chip creation
     private void addChips() {
         System.out.println("\n═════════      ADD CHIPS     ════════");
 
-        // ask user for flavor
-        String flavor = ConsoleHelper.promptForString("Enter flavor");
+        String flavor = getSelectionOrCancel(MenuOptions.Chips.flavors, "Choose Chips flavor");
+        if (flavor == null) return;
 
-        // create and add chips to order
-        currentOrder.addItem(new Chips(flavor));
-        System.out.println("✅ Chips added!");
+        Chips chips = new Chips(flavor);
+        currentOrder.addItem(chips);
+
+        System.out.printf("✅ Chips added! Price: $%.2f\n", chips.calculatePrice());
     }
 
+    // CHECKOUT
     private void checkout() {
         System.out.println("""
             
@@ -216,13 +276,20 @@ public class UserInterface {
 
         if (currentOrder.getItems().isEmpty()) {
             System.out.println("❌ Your order is empty! Please add items first.");
-            return; // Exit early
+            return; // Exit early, no saving
         }
 
         currentOrder.displayOrder(); // show order
 
         System.out.printf("TOTAL: $%.2f\n", currentOrder.calculateTotal());
-        System.out.println();
-        System.out.println("✅ Order complete!");
+
+        // ask if user wants to save the receipt to file
+        boolean saveReceipt = ToppingsHelper.chooseYesNo("Would you like to save this receipt?");
+
+        if (saveReceipt) {
+            ReceiptManager.saveReceipt(currentOrder);
+        }
+
+        System.out.println("✅ Order complete! Thank you for your order!");
     }
 }

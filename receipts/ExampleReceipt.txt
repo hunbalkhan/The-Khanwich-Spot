@@ -1,4 +1,4 @@
-example display of a receipt
+example display of a receipt i want to build
 
 Receipt for The Khanwich Spot
 ==============================

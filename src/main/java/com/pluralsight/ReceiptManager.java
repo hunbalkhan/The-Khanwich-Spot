@@ -82,7 +82,7 @@ public class ReceiptManager {
 
     // writes sandwich details to receipt
     private static void writeSandwichDetails(BufferedWriter bw, Sandwich sandwich) throws IOException {
-        bw.write("SANDWICH (" + sandwich.getSize() + "\"");
+        bw.write("SANDWICH (" + sandwich.getSize() + "\")");
         bw.write("  Bread: " + sandwich.getBreadType() + "\n");
         bw.write("  Toasted: " + (sandwich.isToasted() ? "Yes" : "No") + "\n");
 
