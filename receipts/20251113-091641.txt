@@ -1,0 +1,32 @@
+2=====================================
+         THE  KHANWICH  SPOT
+          CUSTOMER  RECEIPT
+=====================================
+
+Order ID:  20251113-091641
+Date/Time: 2025-11-13  09:16:41
+-------------------------------------
+
+-------------------------------------
+ITEMS ORDERED:
+-------------------------------------
+
+SANDWICH (4")  Bread: White
+  Toasted: Yes
+  Toppings:
+    - Turkey (Extra x2)
+    - Swiss
+    - Lettuce
+    - Onion
+    - Tomato
+    - Jalapenos
+    - Cucumbers
+    - Thousand Island
+  Price: $8.25
+DRINK
+  Size: Medium
+  Flavor: Mango Lassi
+  Price: $2.50
+CHIPS
+  Flavor: Flamin' Hot
+  Price: $1.50

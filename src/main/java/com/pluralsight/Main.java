@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        UserInterface userInterface = new UserInterface();
-        userInterface.display();
+        UserInterface ui = new UserInterface();
+        ui.display();
 
     }
 }

@@ -1,0 +1,22 @@
+=====================================
+         THE  KHANWICH  SPOT
+          CUSTOMER  RECEIPT
+=====================================
+
+Order ID:  20251112-112151
+Date/Time: 2025-11-12  11:21:51
+-------------------------------------
+
+-------------------------------------
+ITEMS ORDERED:
+-------------------------------------
+
+SANDWICH (8")  Bread: Wheat
+  Toasted: Yes
+  Toppings:
+    - Chicken
+    - Bacon
+    - American
+    - Chicken
+    - Bacon
+  Price: $16.50

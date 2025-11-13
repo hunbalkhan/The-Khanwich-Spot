@@ -8,7 +8,7 @@ public class Drink extends Product{
     private String flavor;
 
     public Drink(String flavor, String size) {
-        super(flavor + " (" + size + ")", getPriceBySize(size)); // automatically sets name and price, different from before
+        super(flavor + " (" + size + ")"); // automatically sets name and price, different from before
         this.flavor = flavor;
         this.size = size;
     }
@@ -20,19 +20,24 @@ public class Drink extends Product{
         return flavor;
     }
 
-    private static double getPriceBySize(String size) {
-        switch (size.toLowerCase()) {
-            case "small": return 1.50;
-            case "medium": return 2.00;
-            case "large": return 2.50;
-            default: return 0.0;
-        }
-    }
+//    private static double getPriceBySize(String size) {
+//        switch (size.toLowerCase()) {
+//            case "small": return 1.50;
+//            case "medium": return 2.00;
+//            case "large": return 2.50;
+//            default: return 0.0;
+//        }
+//    }
 
     @Override
     public double calculatePrice() {
         // since price is fixed by size we just need to return price
-        return price;
+        return switch (size.toLowerCase()) {
+            case "small" -> 2.00;
+            case "medium" -> 2.50;
+            case "large" -> 3.00;
+            default -> 0.0;
+        };
     }
 
     public void displayDetails(int width) {

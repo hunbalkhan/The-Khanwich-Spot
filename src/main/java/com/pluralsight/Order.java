@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.models.Chips;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -78,5 +80,10 @@ public class Order {
 
 
     }
+
+//    public String getOrderDetail(){
+//        return "all the detail";
+//    }
+
 
 }

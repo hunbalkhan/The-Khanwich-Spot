@@ -1,12 +1,15 @@
-package com.pluralsight;
+package com.pluralsight.models;
 
-public class Chips extends Product{
+import com.pluralsight.ConsoleHelper;
+import com.pluralsight.Product;
+
+public class Chips extends Product {
 
     // Represents a bag of chips (type/flavor).
     private String flavor;
 
     public Chips(String flavor) {
-        super("Chips (" + flavor + ")", 1.50);
+        super("Chips (" + flavor + ")");
         this.flavor = flavor;
     }
 
@@ -16,7 +19,7 @@ public class Chips extends Product{
 
     @Override
     public double calculatePrice() {
-        return price;
+        return 1.50;
     }
 
     public void displayDetails(int width) {
@@ -24,5 +27,4 @@ public class Chips extends Product{
         System.out.printf("Price: $%.2f\n", calculatePrice());
         System.out.println(ConsoleHelper.centerText("-".repeat(width), width));
     }
-
 }

@@ -1,0 +1,22 @@
+=====================================
+         THE  KHANWICH  SPOT
+          CUSTOMER  RECEIPT
+=====================================
+
+Order ID:  20251112-113012
+Date/Time: 2025-11-12  11:30:12
+-------------------------------------
+-------------------------------------
+ITEMS ORDERED:
+-------------------------------------
+
+SANDWICH (8")  Bread: Rye
+  Toasted: Yes
+  Toppings:
+    - Turkey (Extra x2)
+    - Bacon
+    - Swiss (Extra x1)
+    - Lettuce
+    - Peppers
+    - Tomato
+  Price: $15.10

@@ -1,7 +1,8 @@
 package com.pluralsight;
 
-import java.awt.*;
-import java.util.ArrayList;
+
+import com.pluralsight.models.Chips;
+
 import java.util.List;
 
 public class UserInterface {
@@ -13,8 +14,6 @@ public class UserInterface {
 
 
         boolean running = true; // keeps the main menu running
-
-        // main program loop
         while (running) {
             showMainMenu();
 
@@ -85,26 +84,46 @@ public class UserInterface {
 
     private void addSandwich() {
         System.out.println("\n═════════    ADD SANDWICH    ════════");
+        System.out.println("\n--- Sandwich Sizes ---");
 
-        String size = ToppingsHelper.selectSingle(MenuOptions.Sandwich.sizes, "Choose Sandwich Size (inch)");
-
-        // error handling if user skipped selection
-        if (size == null) {
-            System.out.println("❌ Sandwich creation cancelled.");
-            return;
+        // show sizes with price
+        for (int i = 0; i < MenuOptions.Sandwich.sizes.length; i++) {
+            System.out.printf("%d. %s\" - $%.2f (base price)\n",
+                    i + 1,
+                    MenuOptions.Sandwich.sizes[i],
+                    MenuOptions.Sandwich.sizePrices[i]);
         }
 
+        // error handling for options outside of number range
+        int sizeChoice = ConsoleHelper.promptForInt("Select size") - 1;
+        if (sizeChoice < 0    ||    sizeChoice >= MenuOptions.Sandwich.sizes.length) {
+            System.out.println("❌ Invalid choice. Sandwich cancelled.");
+        }
+
+//        String size = ToppingsHelper.selectSingle(MenuOptions.Sandwich.sizes, "Choose Sandwich Size (inch)");
+//
+//         error handling if user skipped selection
+//        if (size == null) {
+//            System.out.println("❌ Sandwich creation cancelled.");
+//           return;
+//        }
+
+        String size = MenuOptions.Sandwich.sizes[sizeChoice];
         String bread = ToppingsHelper.selectSingle(MenuOptions.Sandwich.breadTypes, "Choose Bread Type");
 
-        if (size == null) {
+        if (bread == null) {
             System.out.println("❌ Sandwich creation cancelled.");
             return;
         }
 
+        // ask if toasted
         boolean toasted = ToppingsHelper.chooseYesNo("Would you like it toasted?");
 
         // empty sandwich object
-        Sandwich sandwich = new Sandwich("Custom Sandwich", 0, size, bread, toasted, new ArrayList<>());
+        Sandwich sandwich = new Sandwich("Custom Sandwich", size, bread, toasted);
+
+        //show running subtotal
+        System.out.printf("\nCurrent sandwich price: $%.2f\n", sandwich.calculatePrice());
 
         // above sammich was created now we need to add toppings
         boolean running = true;
@@ -124,16 +143,29 @@ public class UserInterface {
             int choice = ConsoleHelper.promptForInt("Enter choice");
 
             switch (choice) {
-                case 1 -> addMeats(sandwich);
-                case 2 -> addCheeses(sandwich);
-                case 3 -> addVeggies(sandwich);
-                case 4 -> addSauces(sandwich);
+                case 1 -> {
+                    addMeats(sandwich);
+                    System.out.printf("Current sandwich price: $%.2f\n", sandwich.calculatePrice());
+                }
+                case 2 -> {
+                    addCheeses(sandwich);
+                    System.out.printf("Current sandwich price: $%.2f\n", sandwich.calculatePrice());
+                }
+                case 3 -> {
+                    addVeggies(sandwich);
+                    System.out.printf("Current sandwich price: $%.2f (veggies are FREE!)\n", sandwich.calculatePrice());
+                }
+                case 4 -> {
+                    addSauces(sandwich);
+                    System.out.printf("Current sandwich price: $%.2f (sauces are FREE!)\n", sandwich.calculatePrice());
+                }
                 case 0 -> running = false;
                 default -> System.out.println("❌ Invalid choice.");
             }
         }
         currentOrder.addItem(sandwich);
-        System.out.printf("\n✅ Sandwich added to your order! \nPrice: $%.2f\n", sandwich.calculatePrice());
+        System.out.printf("\n✅ Sandwich added to your order! Final Price: $%.2f\n", sandwich.calculatePrice());
+        System.out.printf("Order total so far: $%.2f\n", currentOrder.calculateTotal());
     }
 
 

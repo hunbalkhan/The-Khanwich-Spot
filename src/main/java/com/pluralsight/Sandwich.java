@@ -12,8 +12,8 @@ public class Sandwich extends Product{
     private ArrayList<Topping> toppings;
 
     // Constructors
-    public Sandwich(String name, double price, String size, String breadType, boolean toasted, ArrayList<Topping> toppings) {
-        super(name, getBasePrice(size));
+     public Sandwich(String name, String size, String breadType, boolean toasted) {
+        super(name);
         this.size = size;
         this.breadType = breadType;
         this.toasted = toasted;
@@ -36,26 +36,23 @@ public class Sandwich extends Product{
 
     // Returns base sandwich price depending on size
     private static double getBasePrice(String size) {
-        switch (size) {
-            case "4": return 5.50;
-            case "8": return 7.00;
-            case "12": return 8.50;
-            default: return 0;
-        }
+        return switch (size) {
+            case "4" -> 5.50;
+            case "8" -> 7.00;
+            case "12" -> 8.50;
+            default -> 0.0;
+        };
     }
-
-// I kind of want to go ahead and calculate everything in each class and then make it to print in an interface class to bring i together then make main to only have one display method
 
     // topping added to sammich
     public void addTopping(Topping topping) {
         toppings.add(topping);
     }
 
-
     // helper for the meat pricing based on size of sammich and multiple meat add ons
     private double getMeatPrice(String size, int extraMeatCount) {
-        double basePrice = 0;
-        double extraPrice = 0;
+        double basePrice;
+        double extraPrice;
 
         switch (size) {
             case "4":
@@ -80,8 +77,8 @@ public class Sandwich extends Product{
 
     // helper for the cheese pricing
     private double getCheesePrice(String size, int extraCheeseCount) {
-        double basePrice = 0;
-        double extraPrice = 0;
+        double basePrice;
+        double extraPrice;
 
         switch (size) {
             case "4":
@@ -105,22 +102,17 @@ public class Sandwich extends Product{
 
     @Override
     public double calculatePrice() {
-        double total = price; // start with base sammich price
+        double total = getBasePrice(size); // start with base sammich price
 
         for (Topping t : toppings) {
             String category = t.getCategory(); // meat, cheese, regular toppings etc.
 
             switch (category.toLowerCase()) {
-                case "meat":
-                    total += getMeatPrice(size, t.getExtraCount());
-                    break;
-                case "cheese":
-                    total += getCheesePrice(size, t.getExtraCount());
-                    break;
+                case "meat" -> total += getMeatPrice(size, t.getExtraCount());
+                case "cheese" -> total += getCheesePrice(size, t.getExtraCount());
                 // regular toppings/sauces are free
             }
         }
-
         return total;
     }
 

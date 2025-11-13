@@ -1,0 +1,30 @@
+=====================================
+         THE  KHANWICH  SPOT
+          CUSTOMER  RECEIPT
+=====================================
+Order ID:  20251113-092930
+Date/Time: 2025-11-13  09:29:30
+-------------------------------------
+ITEMS ORDERED:
+
+SANDWICH (12")
+  Bread: Italian Herbs & Cheese
+  Toasted: Yes
+  Toppings:
+    - Lettuce
+    - Onion
+    - Tomato
+    - Turkey (Extra x2)
+    - Bacon
+    - Balsamic Glaze
+    - Mayo
+  Price: $17.50
+
+DRINK
+  Size: Large
+  Flavor: Mango Lassi
+  Price: $2.50
+
+CHIPS
+  Flavor: Flamin' Hot
+  Price: $1.50

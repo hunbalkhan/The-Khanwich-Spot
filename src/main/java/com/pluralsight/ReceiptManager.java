@@ -2,6 +2,8 @@ package com.pluralsight;
 
 // Formats and prints receipts to console
 
+import com.pluralsight.models.Chips;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -51,17 +53,15 @@ public class ReceiptManager {
         bw.write("=====================================\n");
         bw.write("         THE  KHANWICH  SPOT\n");
         bw.write("          CUSTOMER  RECEIPT\n");
-        bw.write("=====================================\n\n");
+        bw.write("=====================================\n");
 
         // order info
         bw.write("Order ID:  " + order.getOrderId() + "\n");
         bw.write("Date/Time: " + order.getDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm:ss")) + "\n");
-        bw.write("-------------------------------------\n\n");
+        bw.write("-------------------------------------\n");
 
         // item selection
-        bw.write("-------------------------------------\n");
-        bw.write("ITEMS ORDERED:\n");
-        bw.write("-------------------------------------\n\n");
+        bw.write("ITEMS ORDERED:\n\n");
 
         // loop through each item in order
         for (Product item : order.getItems()) {
@@ -82,7 +82,7 @@ public class ReceiptManager {
 
     // writes sandwich details to receipt
     private static void writeSandwichDetails(BufferedWriter bw, Sandwich sandwich) throws IOException {
-        bw.write("SANDWICH (" + sandwich.getSize() + "\")");
+        bw.write("SANDWICH (" + sandwich.getSize() + "\")\n");
         bw.write("  Bread: " + sandwich.getBreadType() + "\n");
         bw.write("  Toasted: " + (sandwich.isToasted() ? "Yes" : "No") + "\n");
 
@@ -100,7 +100,7 @@ public class ReceiptManager {
             }
         }
         // write price
-        bw.write(String.format("  Price: $%.2f\n", sandwich.calculatePrice()));
+        bw.write(String.format("  Price: $%.2f\n\n", sandwich.calculatePrice()));
     }
 
     // writes drink details to receipt
@@ -108,7 +108,7 @@ public class ReceiptManager {
         bw.write("DRINK\n");
         bw.write("  Size: " + drink.getSize() + "\n");
         bw.write("  Flavor: " + drink.getFlavor() + "\n");
-        bw.write(String.format("  Price: $%.2f\n", drink.calculatePrice()));
+        bw.write(String.format("  Price: $%.2f\n\n", drink.calculatePrice()));
     }
 
     // writes chip details to receipt
@@ -117,4 +117,5 @@ public class ReceiptManager {
         bw.write("  Flavor: " + chips.getFlavor() + "\n");
         bw.write(String.format("  Price: $%.2f\n", chips.calculatePrice()));
     }
+
 }

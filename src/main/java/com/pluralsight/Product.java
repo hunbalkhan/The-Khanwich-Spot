@@ -6,18 +6,16 @@ public abstract class Product {
 
     // Protected can be used in this class and the extended classes
     protected String name;
-    protected double price;
 
-    public Product(String name, double price) {
+    //todo: these could be private.
+
+    public Product(String name) {
         this.name = name;
-        this.price = price;
+
     }
 
     public String getName() {
         return name;
-    }
-    public double getPrice() {
-        return price;
     }
 
     // Abstract method that forces subclasses to define how their price calculation
@@ -25,6 +23,6 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return String.format("%s | $%.2f", name, price);
+        return String.format("%s | $%.2f", name, calculatePrice());
     }
 }

@@ -24,7 +24,7 @@ public class ToppingsHelper {
         displayOptions(options, title);
 
         // ask user input
-        String input = ConsoleHelper.promptForString("Enter numbers seperated by a comma (0 to skip)");
+        String input = ConsoleHelper.promptForString("Enter numbers separated by a comma i.e. 1,2,3  (0 to skip)");
 
         // split input by spaces
         String[] parts = input.split(",");
@@ -68,6 +68,28 @@ public class ToppingsHelper {
 
         System.out.println("No selection made.");
         return null; // tbd
+    }
+
+    public static String selectSingleWithPrices(String[] options, double[] prices, String title) {
+        System.out.println("\n--- " + title + " ---");
+
+        for (int i = 0; i < options.length; i++) {
+            System.out.printf("%d. %-20s ($%.2f)\n", i + 1, options[i], prices[i]);
+        }
+        System.out.println("0. Skip");
+
+        String input = ConsoleHelper.promptForString("Enter your choice");
+
+        try {
+            int index = Integer.parseInt(input) - 1;
+            if (index >= 0 && index < options.length) {
+                return options[index];
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input.");
+        }
+
+        return null;
     }
 
     public static boolean chooseYesNo(String question) {
