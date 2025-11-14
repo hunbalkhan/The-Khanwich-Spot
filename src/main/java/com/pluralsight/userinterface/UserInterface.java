@@ -177,14 +177,6 @@ public class UserInterface {
     private void addSignatureSandwich() {
         System.out.println("\n═══  ADD SIGNATURE SANDWICH  ════");
 
-        //create abstradt ??? signature classes, extended from sammich class
-
-        // print blt sammich
-
-        // print philly cheese steak
-
-        // 0) cancel
-
         System.out.println("""
                 1) BLT - $10.50
                    8" White bread (Toasted)

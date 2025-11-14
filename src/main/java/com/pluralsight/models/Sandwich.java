@@ -13,7 +13,7 @@ public class Sandwich extends Product {
     private boolean toasted;
     private ArrayList<Topping> toppings;
 
-    // Constructor for user made sandwiches fro m scratch
+    // Constructor 
      public Sandwich (String name, String size, String breadType, boolean toasted ) {
         super(name);
         this.size = size;
@@ -21,9 +21,6 @@ public class Sandwich extends Product {
         this.toasted = toasted;
         this.toppings = new ArrayList<>(); // makes this start with an empty list of toppings
     }
-
-    // constructor for signature sandwiches
-
 
     // Getters
     public String getSize() {
