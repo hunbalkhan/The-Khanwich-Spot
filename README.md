@@ -102,7 +102,32 @@ Saved in the `receipts/` folder.
 This structure keeps logic clean and organized across models, UI, and data handling.
 
 ---
+## UML Architectural structure
 
+What my previous design looked like when starting out in this project was this below
+
+<img width="659" height="634" alt="image" src="https://github.com/user-attachments/assets/121a1ab0-ca2d-4518-9470-ce7dbd30ec7f" />
+
+---
+
+<img width="1089" height="760" alt="image" src="https://github.com/user-attachments/assets/890d8771-ad86-41d7-8a52-4a2ca0b58ded" />
+
+Attached here is my actual UML design on the Object-Oriented-Programming.
+
+### Architecture Overview
+
+**Package Structure:**
+- **models**: Core business objects (Product hierarchy, Order, Topping)
+- **userinterface**: User interaction and menu navigation
+- **data**: File I/O and receipt management
+
+**Key Relationships:**
+- **Inheritance**: Product → Sandwich/Drink/Chips demonstrates polymorphism
+- **Composition**: Order aggregates Products; Sandwich aggregates Toppings
+- **Dependencies**: UserInterface coordinates all components
+
+
+---
 ## How It Works (Technical Summary)
 
 - **Abstract classes** (`Product`, `SignatureSandwich`) define shared rules  
@@ -124,13 +149,21 @@ This structure keeps logic clean and organized across models, UI, and data handl
 
 ---
 
-## 📝 Sample Output
+## Sample Output
 
 A clean preview of what the console shows:
 
 <img width="300" height="550" alt="image" src="https://github.com/user-attachments/assets/8e10e49c-d240-4ec3-ac62-d3c17a17c0a8" />
 
 Receipts saved as `.txt` files show an itemized breakdown.
+
+---
+
+<img width="343" height="894" alt="image" src="https://github.com/user-attachments/assets/d41d309a-ab6c-4b69-967d-2dd72e847ba8" />
+
+---
+
+<img width="551" height="918" alt="image" src="https://github.com/user-attachments/assets/bcff6245-03d9-42f0-9ce6-b27cc0e37c47" />
 
 ---
 
@@ -153,10 +186,8 @@ Receipts saved as `.txt` files show an itemized breakdown.
 If expanded later, I’d like to add:
 
 - Database storage for orders  
-- A GUI using JavaFX or Swing  
 - Employee login accounts  
 - Inventory tracking  
-- Customer loyalty features  
 - Payment system simulation  
 - Order editing before checkout  
 - Daily/weekly sales reports  
@@ -175,4 +206,8 @@ Huge thank you to **Year Up United**, my instructors, mentors, and peers for gui
 Year Up United — Application Development Track  
 - Email: hunbal4@gmail.com 
 - LinkedIn: https://www.linkedin.com/in/hunbal-khan-durrani/ 
-- GitHub: *[your username]*  
+- GitHub: hunbalkhan  
+
+
+
+
