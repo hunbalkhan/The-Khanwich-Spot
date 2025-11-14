@@ -1,6 +1,8 @@
-package com.pluralsight;
+package com.pluralsight.models;
 
-public class Drink extends Product{
+import com.pluralsight.userinterface.ConsoleHelper;
+
+public class Drink extends Product {
 
     // Represents a drink with a size and flavor.
 

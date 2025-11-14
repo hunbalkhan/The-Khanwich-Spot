@@ -1,9 +1,9 @@
-package com.pluralsight;
+package com.pluralsight.userinterface;
 
 
-import com.pluralsight.models.Chips;
+import com.pluralsight.data.ReceiptManager;
+import com.pluralsight.models.*;
 
-import java.awt.*;
 import java.util.List;
 
 public class UserInterface {

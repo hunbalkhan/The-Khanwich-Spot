@@ -1,8 +1,10 @@
-package com.pluralsight;
+package com.pluralsight.models;
+
+import com.pluralsight.userinterface.ConsoleHelper;
 
 import java.util.ArrayList;
 
-public class Sandwich extends Product{
+public class Sandwich extends Product {
 
     // Represents a customizable sandwich. Will include size, bread, toppings, toasted option.
 

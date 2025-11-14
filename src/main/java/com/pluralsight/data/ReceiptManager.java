@@ -1,8 +1,14 @@
-package com.pluralsight;
+package com.pluralsight.data;
 
 // Formats and prints receipts to console
 
+import com.pluralsight.userinterface.MenuOptions;
+import com.pluralsight.models.Order;
+import com.pluralsight.models.Topping;
 import com.pluralsight.models.Chips;
+import com.pluralsight.models.Drink;
+import com.pluralsight.models.Product;
+import com.pluralsight.models.Sandwich;
 
 import java.io.BufferedWriter;
 import java.io.File;

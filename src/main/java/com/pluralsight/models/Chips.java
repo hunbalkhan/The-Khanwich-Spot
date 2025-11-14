@@ -1,7 +1,6 @@
 package com.pluralsight.models;
 
-import com.pluralsight.ConsoleHelper;
-import com.pluralsight.Product;
+import com.pluralsight.userinterface.ConsoleHelper;
 
 public class Chips extends Product {
 

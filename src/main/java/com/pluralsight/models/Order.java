@@ -1,6 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.models;
 
-import com.pluralsight.models.Chips;
+import com.pluralsight.userinterface.ConsoleHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
