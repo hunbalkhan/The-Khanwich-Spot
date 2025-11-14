@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe34b721-bcfe-49dd-a4c4-b408bf9088d1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/BLT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/PhillyCheeseSteak.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/SignatureSandwich.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/ConsoleHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/ConsoleHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/ReceiptManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/ReceiptManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/data/ReceiptManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/data/ReceiptManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Sandwich.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/models/Sandwich.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/userinterface/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/userinterface/UserInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

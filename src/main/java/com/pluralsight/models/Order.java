@@ -52,15 +52,18 @@ public class Order {
 
         int width = 50; // width for centering console
 
-        System.out.println(ConsoleHelper.centerText("\n=== Order " + orderId + " ===", width));
+        // header
+        System.out.println(ConsoleHelper.centerText("=".repeat(width), width));
+        System.out.println(ConsoleHelper.centerText("\nOrder #" + orderId, width));
 
         // date and time centered
         System.out.println(ConsoleHelper.centerText(
                 "Date/Time: " + dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd / HH:mm:ss")),
                 width));
+        System.out.println(ConsoleHelper.centerText("=".repeat(width), width));
 
         // prints and centres header
-        System.out.println(ConsoleHelper.centerText("Items in order:", width));
+        System.out.println("\nItems in order:");
 
         for (Product p : items) {
             // check if product is a sandwich

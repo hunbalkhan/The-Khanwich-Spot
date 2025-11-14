@@ -13,14 +13,17 @@ public class Sandwich extends Product {
     private boolean toasted;
     private ArrayList<Topping> toppings;
 
-    // Constructors
-     public Sandwich(String name, String size, String breadType, boolean toasted) {
+    // Constructor for user made sandwiches fro m scratch
+     public Sandwich (String name, String size, String breadType, boolean toasted ) {
         super(name);
         this.size = size;
         this.breadType = breadType;
         this.toasted = toasted;
         this.toppings = new ArrayList<>(); // makes this start with an empty list of toppings
     }
+
+    // constructor for signature sandwiches
+
 
     // Getters
     public String getSize() {
@@ -127,22 +130,25 @@ public class Sandwich extends Product {
         System.out.println(ConsoleHelper.centerText("--- " + name + " ---", width));
 
         // prints and centres size, bread, toasted
-        System.out.println(ConsoleHelper.centerText("Size: " + size + " | Bread: " + breadType + " | Toasted: " + (toasted ? "Yes" : "No"), width));
-
-        // prints and centres toppings header
-        System.out.println(ConsoleHelper.centerText("Toppings:",width));
+        System.out.println(ConsoleHelper.centerText("Size: " + size + "\" | Bread: " + breadType + " | Toasted: " + (toasted ? "Yes" : "No"), width));
 
         // loops all toppings and prints & centres each one
-        for (Topping t : toppings) {
-            // toppings should show name, category and extra count if any
-            System.out.println(ConsoleHelper.centerText(" - " + t, width));
-        }
+        if (!toppings.isEmpty()) {
+            System.out.println(ConsoleHelper.centerText("Toppings:", width));
+            for (Topping t : toppings) {
 
+                // toppings should show name, category and extra count if any
+                System.out.println(ConsoleHelper.centerText(" - " + t.getName() +
+                        (t.getExtraCount() > 0 ? " Extra x" + t.getExtraCount() + ")" : ""),
+                        width));
+            }
+        }
         // prints and centres the price
-        System.out.printf(ConsoleHelper.centerText(
-                String.format("Price: $%.2f\n", calculatePrice()), width));
-        // prints a line seperator centered
-        System.out.println("-".repeat(width));
+        System.out.println(ConsoleHelper.centerText(
+                String.format("Price: $%.2f", calculatePrice()),
+                width));
+        System.out.println(ConsoleHelper.centerText("-".repeat(width), width));
+        System.out.println();
     }
 
     @Override

@@ -104,7 +104,7 @@ public class ReceiptManager {
 
         //base price
         double basePrice = getBaseSandwichPrice(sandwich.getSize());
-        bw.write(String.format("  Base Price: $%.2f\n", basePrice));
+        bw.write(String.format("  Base Price:  ........... +$%.2f\n", basePrice));
 
         // write toppings in format
         if (!sandwich.getToppings().isEmpty()) {
@@ -117,10 +117,19 @@ public class ReceiptManager {
                 if (topping.getExtraCount() > 0) {
                     bw.write(" (Extra x" + topping.getExtraCount() + ")");
                 }
+
+                // show cost prem/free
+                if (toppingCost > 0) {
+                    bw.write(String.format(" ........... +$%.2f", toppingCost ));
+                }
+                else {
+                    bw.write(" ........... FREE");
+                }
                 bw.write("\n");
             }
         }
         // write price
+        bw.write("-------------------------------------\n");
         bw.write(String.format("  Price: $%.2f\n\n", sandwich.calculatePrice()));
     }
 

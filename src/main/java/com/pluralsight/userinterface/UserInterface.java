@@ -53,9 +53,10 @@ public class UserInterface {
 
             switch (choice) {
                 case 1 -> addSandwich();
-                case 2 -> addDrink();
-                case 3 -> addChips();
-                case 4 -> {
+                case 2 -> addSignatureSandwich();
+                case 3 -> addDrink();
+                case 4 -> addChips();
+                case 5 -> {
                     checkout(); // finish and display order
                     ordering = false; // exit loop
                 }
@@ -76,9 +77,10 @@ public class UserInterface {
             ║        ORDER MENU          ║
             ╚════════════════════════════╝
             1) Add Sandwich
-            2) Add Drink
-            3) Add Chips
-            4) Checkout
+            2) Add Signature Sandwich
+            3) Add Drink
+            4) Add Chips
+            5) Checkout
             0) Cancel Order
             """);
     }
@@ -167,7 +169,99 @@ public class UserInterface {
             }
         }
         currentOrder.addItem(sandwich);
-        System.out.printf("\n✅ Sandwich added to your order! Final Price: $%.2f\n", sandwich.calculatePrice());
+        System.out.printf("\n✅%s Sandwich added to your order! Final Price: $%.2f\n", sandwich.getName(),sandwich.calculatePrice());
+        System.out.printf("Order total so far: $%.2f\n", currentOrder.calculateTotal());
+    }
+
+
+    private void addSignatureSandwich() {
+        System.out.println("\n═══  ADD SIGNATURE SANDWICH  ════");
+
+        //create abstradt ??? signature classes, extended from sammich class
+
+        // print blt sammich
+
+        // print philly cheese steak
+
+        // 0) cancel
+
+        System.out.println("""
+                1) BLT - $10.50
+                   8" White bread (Toasted)
+                   Bacon, Chedder, Lettuce, Tomato, Ranch
+                
+                2) Philly Cheese Steak - $11.00
+                   8" White Bread (Toasted)
+                   Steak, American Cheese, Peppers, Mayo
+                   
+                0) Cancel
+                """);
+
+        int choice = ConsoleHelper.promptForInt("Select a signature sandwich");
+
+        Sandwich sandwich = null;
+
+        switch (choice) {
+            case 1 -> sandwich = new BLT();
+            case 2 -> sandwich = new PhillyCheeseSteak();
+            case 0 -> {
+                System.out.println("❌ Signature Sandwich selection cancelled.");
+                return;
+            }
+            default -> {
+                System.out.println("❌ Invalid choice.");
+                return;
+            }
+        }
+
+        System.out.printf("\n✅%s Sandwich added to your order! Final Price: $%.2f\n", sandwich.getName(), sandwich.calculatePrice());
+
+        boolean customize = ToppingsHelper.chooseYesNo("Would you like to customize this sandwich?");
+
+        if (customize) {
+            // Allow customization using the same topping menu
+            boolean running = true;
+
+            while (running) {
+                System.out.println("""
+                    
+                    ╔═══════════════════════════════════╗
+                    ║         CUSTOMIZE SANDWICH        ║
+                    ╚═══════════════════════════════════╝
+                    1) Add Extra Meats (premium)
+                    2) Add Extra Cheese (premium)
+                    3) Add More Veggies (FREE)
+                    4) Add More Sauces (FREE)
+                    0) Done customizing
+                    """);
+
+                int customChoice = ConsoleHelper.promptForInt("Enter choice");
+
+                switch (customChoice) {
+                    case 1 -> {
+                        addMeats(sandwich);
+                        System.out.printf("Current sandwich price: $%.2f\n", sandwich.calculatePrice());
+                    }
+                    case 2 -> {
+                        addCheeses(sandwich);
+                        System.out.printf("Current sandwich price: $%.2f\n", sandwich.calculatePrice());
+                    }
+                    case 3 -> {
+                        addVeggies(sandwich);
+                        System.out.printf("Current sandwich price: $%.2f\n", sandwich.calculatePrice());
+                    }
+                    case 4 -> {
+                        addSauces(sandwich);
+                        System.out.printf("Current sandwich price: $%.2f\n", sandwich.calculatePrice());
+                    }
+                    case 0 -> running = false;
+                    default -> System.out.println("❌ Invalid choice. Please try again.");
+                }
+            }
+        }
+
+        currentOrder.addItem(sandwich);
+        System.out.printf("\n✅%s added to your order! Final Price: $%.2f\n", sandwich.getName(), sandwich.calculatePrice());
         System.out.printf("Order total so far: $%.2f\n", currentOrder.calculateTotal());
     }
 

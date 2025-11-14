@@ -1,0 +1,29 @@
+=====================================
+         THE  KHANWICH  SPOT
+          CUSTOMER  RECEIPT
+=====================================
+
+Order ID:  20251114-025423
+Date/Time: 2025-11-14  02:54:23
+-------------------------------------
+ITEMS ORDERED:
+
+SANDWICH (8")
+  Bread: White (Toasted)
+  Base Price: $7.00
+  Toppings:
+    - Bacon
+    - Cheddar
+    - Lettuce
+    - Tomato
+    - Ranch
+  Price: $10.50
+
+
+-------------------------------------
+TOTAL: $10.50
+-------------------------------------
+
+       Thank you for your order!     
+          Please come again!         
+-------------------------------------
