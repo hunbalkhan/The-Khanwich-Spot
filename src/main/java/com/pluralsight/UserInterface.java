@@ -3,6 +3,7 @@ package com.pluralsight;
 
 import com.pluralsight.models.Chips;
 
+import java.awt.*;
 import java.util.List;
 
 public class UserInterface {
@@ -86,35 +87,37 @@ public class UserInterface {
         System.out.println("\n═════════    ADD SANDWICH    ════════");
         System.out.println("\n--- Sandwich Sizes ---");
 
-        // show sizes with price
-        for (int i = 0; i < MenuOptions.Sandwich.sizes.length; i++) {
-            System.out.printf("%d. %s\" - $%.2f (base price)\n",
-                    i + 1,
-                    MenuOptions.Sandwich.sizes[i],
-                    MenuOptions.Sandwich.sizePrices[i]);
+        // show sizes with prices, loop until valid selection
+        String size = null;
+        while (size == null) {
+            System.out.println("\n");
+            for (int i = 0; i < MenuOptions.Sandwich.sizes.length; i++) {
+                System.out.printf("%d) %s\" - $%.2f (base price)\n",
+                        i + 1,
+                        MenuOptions.Sandwich.sizes[i],
+                        MenuOptions.Sandwich.sizePrices[i]);
+            }
+            System.out.println("0) Cancel");
+
+            int sizeChoice = ConsoleHelper.promptForInt("Select size") - 1;
+
+            //check if user wants to cancel
+            if (sizeChoice == -1) {
+                System.out.println("❌ Sandwich creation cancelled.");
+                return; // exit
+            }
+
+            // check if choice is valid
+            if (sizeChoice >= 0 && sizeChoice < MenuOptions.Sandwich.sizes.length) {
+                size = MenuOptions.Sandwich.sizes[sizeChoice]; // Valid choice!
+            } else {
+                // Invalid choice - loop will repeat
+                System.out.println("❌ Invalid choice. Please try again.");
+            }
         }
 
-        // error handling for options outside of number range
-        int sizeChoice = ConsoleHelper.promptForInt("Select size") - 1;
-        if (sizeChoice < 0    ||    sizeChoice >= MenuOptions.Sandwich.sizes.length) {
-            System.out.println("❌ Invalid choice. Sandwich cancelled.");
-        }
-
-//        String size = ToppingsHelper.selectSingle(MenuOptions.Sandwich.sizes, "Choose Sandwich Size (inch)");
-//
-//         error handling if user skipped selection
-//        if (size == null) {
-//            System.out.println("❌ Sandwich creation cancelled.");
-//           return;
-//        }
-
-        String size = MenuOptions.Sandwich.sizes[sizeChoice];
-        String bread = ToppingsHelper.selectSingle(MenuOptions.Sandwich.breadTypes, "Choose Bread Type");
-
-        if (bread == null) {
-            System.out.println("❌ Sandwich creation cancelled.");
-            return;
-        }
+        String bread = getSelectionOrCancel(MenuOptions.Sandwich.breadTypes, "Choose Bread Type");
+        if (bread == null) return;
 
         // ask if toasted
         boolean toasted = ToppingsHelper.chooseYesNo("Would you like it toasted?");
@@ -190,13 +193,15 @@ public class UserInterface {
                 extra = ConsoleHelper.promptForInt("Extra portions of " + item + "?  (0 for standard)");
             }
 
-            // create a topping object and add it to sandwich
+            // create a topping object and add it to sandwich, category tells price calculator if it is premium or not
             sandwich.addTopping(new Topping(item, category, extra));
         }
         System.out.println("✅ " + title + " added!");
     }
 
+    // these are wrapper methods that call generic helper, making addSandwich easier to read
     private void addMeats(Sandwich sandwich) {
+
 //        // lets user pick multiple meats from list
 //        List <String> selectedMeats = ToppingsHelper.selectMultiple(MenuOptions.Toppings.meats, "Select Meats");
 //
@@ -235,7 +240,7 @@ public class UserInterface {
     }
 
     private void addVeggies(Sandwich sandwich) {
-        addToppings(sandwich, MenuOptions.Toppings.veggies, "Vegies", "regular", false);
+        addToppings(sandwich, MenuOptions.Toppings.veggies, "Veggies", "regular", false);
     }
 
     private void addSauces(Sandwich sandwich) {
@@ -243,6 +248,8 @@ public class UserInterface {
     }
 
 
+
+    // returns the selected item, or null if user explicitly cancels (chooses 0)
     private String getSelectionOrCancel(String[] options, String title) {
 
         // let user select one item from options
@@ -274,9 +281,8 @@ public class UserInterface {
         if (size == null) return; // exit if cancelled
 
         String flavor = getSelectionOrCancel(MenuOptions.Drink.flavors, "Choose Drink flavor");
-        if (size == flavor) return; // exit if cancelled
+        if (flavor == null) return; // exit if cancelled
 
-        // Created new drink object and adding to current order
         Drink drink = new Drink(flavor, size);
         currentOrder.addItem(drink);
 
@@ -311,9 +317,19 @@ public class UserInterface {
             return; // Exit early, no saving
         }
 
+        if (!currentOrder.isValid()) {
+            System.out.println("""
+                    
+                    ❌ Invalid Order!
+                    You must order at least ONE sandwich OR at least ONE drink/chips.
+                    Please add more items before checking out.
+                    """);
+            return;
+        }
+
         currentOrder.displayOrder(); // show order
 
-        System.out.printf("TOTAL: $%.2f\n", currentOrder.calculateTotal());
+        System.out.printf("\nTOTAL: $%.2f\n", currentOrder.calculateTotal());
 
         // ask if user wants to save the receipt to file
         boolean saveReceipt = ToppingsHelper.chooseYesNo("Would you like to save this receipt?");

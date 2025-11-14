@@ -36,11 +36,12 @@ public class ReceiptManager {
         createReceiptFolderIfNeeded();
 
         String fileName = order.getOrderId() + ".txt";
-        String filePath = receiptsFolder + File.separator + fileName;
+        String filePath = receiptsFolder + File.separator + fileName; // i.e receipts/20251113-143025.txt
 
         // try write the receipts to file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             writeReceiptContent(bw, order);
+            System.out.println("✅ Receipt saved successfully: " + fileName);
         } catch (IOException e) {
             System.out.println("❌ Error saving receipt: " + e.getMessage());;
         }
@@ -53,21 +54,21 @@ public class ReceiptManager {
         bw.write("=====================================\n");
         bw.write("         THE  KHANWICH  SPOT\n");
         bw.write("          CUSTOMER  RECEIPT\n");
-        bw.write("=====================================\n");
+        bw.write("=====================================\n\n");
 
         // order info
         bw.write("Order ID:  " + order.getOrderId() + "\n");
         bw.write("Date/Time: " + order.getDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm:ss")) + "\n");
         bw.write("-------------------------------------\n");
 
-        // item selection
+        // item section
         bw.write("ITEMS ORDERED:\n\n");
 
         // loop through each item in order
         for (Product item : order.getItems()) {
             // check what type of product it is and write
             if (item instanceof Sandwich) {
-                // call method with parameter
+                // cast to sandwich, and write sandwich details
                 writeSandwichDetails(bw, (Sandwich) item);
             }
             if (item instanceof Drink) {
@@ -76,20 +77,34 @@ public class ReceiptManager {
             if (item instanceof Chips) {
                 writeChipsDetails(bw, (Chips) item);
             }
+            bw.write("\n");
         }
 
+        // total section
+        bw.write("-------------------------------------\n");
+        bw.write(String.format("TOTAL: $%.2f\n", order.calculateTotal()));
+        bw.write("-------------------------------------\n\n");
+
+        // footer
+        bw.write("       Thank you for your order!     \n");
+        bw.write("          Please come again!         \n");
+        bw.write("-------------------------------------\n");
     }
 
-    // writes sandwich details to receipt
+    // writes details about sandwich to receipt
     private static void writeSandwichDetails(BufferedWriter bw, Sandwich sandwich) throws IOException {
         bw.write("SANDWICH (" + sandwich.getSize() + "\")\n");
-        bw.write("  Bread: " + sandwich.getBreadType() + "\n");
-        bw.write("  Toasted: " + (sandwich.isToasted() ? "Yes" : "No") + "\n");
+        bw.write("  Bread: " + sandwich.getBreadType() + (sandwich.isToasted() ? " (Toasted)" : "") + "\n");
+
+        //base price
+        double basePrice = getBaseSandwichPrice(sandwich.getSize());
+        bw.write(String.format("  Base Price: $%.2f\n", basePrice));
 
         // write toppings in format
         if (!sandwich.getToppings().isEmpty()) {
             bw.write("  Toppings:\n");
             for (Topping topping : sandwich.getToppings()) {
+                double toppingCost = getToppingCost(topping, sandwich.getSize());
                 bw.write("    - " + topping.getName());
 
                 // write extra toppings if applicable
@@ -101,6 +116,53 @@ public class ReceiptManager {
         }
         // write price
         bw.write(String.format("  Price: $%.2f\n\n", sandwich.calculatePrice()));
+    }
+
+
+    // Helper to get base sandwich price
+    private static double getBaseSandwichPrice(String size) {
+
+        if (size.equals("4")) {
+            return 5.50;
+        } else if (size.equals("8")) {
+            return 7.00;
+        } else if (size.equals("12")) {
+            return 8.50;
+        } else {
+            return 0.0; // Invalid size
+        }
+    }
+
+    private static double getToppingCost(Topping topping, String size) {
+        String category = topping.getCategory().toLowerCase();
+
+        // Figure out which size index we need (0, 1, 2)
+        int sizeIndex = 0; // default is small 4"
+
+        if (size.equals("8")) {
+            sizeIndex = 1;
+        } else if (size.equals("12")) {
+            sizeIndex = 2;
+        }
+
+        // Calculate cost based on topping category
+        if (category.equals("meats")) {
+
+            double baseMeat = MenuOptions.Toppings.meatBasePrices[sizeIndex];
+            double extraMeat = MenuOptions.Toppings.meatExtraPrices[sizeIndex];
+
+            return baseMeat + (extraMeat * topping.getExtraCount());
+        }
+        else if (category.equals("cheese")) {
+
+            double baseCheese = MenuOptions.Toppings.cheeseBasePrices[sizeIndex];
+            double extraCheesePrice = MenuOptions.Toppings.cheeseExtraPrices[sizeIndex];
+
+            return baseCheese + (extraCheesePrice * topping.getExtraCount());
+        }
+        else {
+            return 0.0; // regular toppings
+        }
     }
 
     // writes drink details to receipt

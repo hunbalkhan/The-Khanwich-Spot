@@ -22,19 +22,24 @@ public class ConsoleHelper {
         int result = 0;
         boolean valid = false;
 
-        // keep asking until get a valid integer
         while (!valid) {
             System.out.print(prompt + ": ");
 
-            // checks if input has an integer
+            // Check if next input is an integer
             if (scanner.hasNextInt()) {
-                result = scanner.nextInt();
-                scanner.nextLine();
-                valid = true;
+                result = scanner.nextInt(); // Read the integer
+                scanner.nextLine(); // Clear the newline
+                valid = true; // Success!
             }
             else {
-                System.out.println("❌ Invalid input. Please enter a number.");
-                scanner.nextLine();
+                // Clear the bad input
+                String badInput = scanner.nextLine();
+
+                // Only show error if they actually typed something
+                if (!badInput.trim().isEmpty()) {
+                    System.out.println("\n❌ Invalid input. Please enter a number.\n");
+                }
+                // If they just pressed Enter, silently ask again
             }
         }
         return result;
