@@ -133,7 +133,6 @@ public class ReceiptManager {
         bw.write(String.format("  Price: $%.2f\n\n", sandwich.calculatePrice()));
     }
 
-
     // Helper to get base sandwich price
     private static double getBaseSandwichPrice(String size) {
 
@@ -194,5 +193,4 @@ public class ReceiptManager {
         bw.write("  Flavor: " + chips.getFlavor() + "\n");
         bw.write(String.format("  Price: $%.2f\n", chips.calculatePrice()));
     }
-
 }

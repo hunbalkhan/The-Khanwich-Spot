@@ -46,7 +46,6 @@ public class Order {
 
 
 
-
     // Display order details to the console.
     public void displayOrder() {
 
@@ -84,14 +83,11 @@ public class Order {
 
     }
 
-//    public String getOrderDetail(){
-//        return "all the detail";
-//    }
-
     public boolean isValid() {
         //Stream looks at all the products in the order For this product p, return true if it’s a Sandwich.
         boolean hasSandwich = items.stream().anyMatch( p -> p instanceof Sandwich );
         boolean hasDrinkOrChips = items.stream().anyMatch( p -> p instanceof Drink || p instanceof Chips);
+
         return hasSandwich || hasDrinkOrChips;
 
 

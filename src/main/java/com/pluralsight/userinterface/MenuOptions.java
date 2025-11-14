@@ -13,15 +13,12 @@ public class MenuOptions {
     // Drink options
     public static class Drink {
         public static final String[] sizes = {"Small", "Medium", "Large"};
-        public static final double[] sizePrices = {2.00, 2.50, 3.00};
-
         public static final String[] flavors = {"Coke", "Fanta", "Sprite", "Mango Lassi", "Dr Pepper", "Fresca", "Water"};
     }
 
     // Chip options
     public static class Chips {
         public static final String[] flavors = {"Sour Cream & Onion", "BBQ", "Ranch", "Salt & Vinegar", "Salted", "Flamin' Hot"};
-        public static final double flavorsPrice = 1.50;
     }
 
     // Topping options
